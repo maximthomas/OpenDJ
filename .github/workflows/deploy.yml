@@ -28,7 +28,7 @@ jobs:
       - name: Build package local
         env:
           MAVEN_OPTS: -Dhttps.protocols=TLSv1.2 -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -Dmaven.wagon.http.retryHandler.requestSentEnabled=true -Dmaven.wagon.http.retryHandler.count=10
-        run: mvn --batch-mode --errors --update-snapshots -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} package --file pom.xml
+        run: mvn --batch-mode --errors --update-snapshots package --file opendj-doc-generated-ref/pom.xml
       - name: Configure Git User
         run: |
           git config --global user.name "Open Identity Platform Community"
