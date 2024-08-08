@@ -68,7 +68,7 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           MAVEN_OPTS: -Dhttps.protocols=TLSv1.2 -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -Dmaven.wagon.http.retryHandler.requestSentEnabled=true -Dmaven.wagon.http.retryHandler.count=10
         if: ${{ env.MAVEN_USERNAME!='' && env.MAVEN_PASSWORD!='' }}
-        run: mvn --batch-mode -Darguments="-Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}" -DsignTag=true -DtagNameFormat="${{ github.event.inputs.releaseVersion }}" -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} release:prepare release:perform --file pom.xml
+        run: mvn --batch-mode -Darguments="-Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}" -DsignTag=true -DtagNameFormat="${{ github.event.inputs.releaseVersion }}" -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} -DgoogleAnalyticsId=${{ vars.DOC_GOOGLE_ANALYTICS_ID }} release:prepare release:perform --file pom.xml
       - name: Release on GitHub
         uses: softprops/action-gh-release@v2
         with:
@@ -125,8 +125,8 @@ jobs:
           export SITE_DOC_FOLDER=${REPO_NAME_LC}-doc-generated-ref
           export TAG_NAME='${{github.event.repository.name}}-${{ github.event.inputs.releaseVersion }}'
           cd doc.openidentityplatform.org
-          git tag -f '${TAG_NAME}'
-          git push --quiet --force origin '${TAG_NAME}'
+          git tag -f ${TAG_NAME}
+          git push --quiet --force origin ${TAG_NAME}
 
   release-docker:
     name: Docker release

@@ -33,6 +33,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docTargetVersion>${project.version}</docTargetVersion>
         <sdkDocTargetVersion>${project.version}</sdkDocTargetVersion>
+        <googleAnalyticsId/>
     </properties>
 
 
@@ -600,7 +601,7 @@
                             <projectVersion>${project.version}</projectVersion>
                             <releaseVersion>${project.version}</releaseVersion>
                             <buildReleaseZip>true</buildReleaseZip>
-                            <googleAnalyticsId />
+                            <googleAnalyticsId>${googleAnalyticsId}</googleAnalyticsId>
                             <isDraftMode>no</isDraftMode>
 <!--                             <localeTag>en</localeTag> -->
                             <formats combine.self="override">
