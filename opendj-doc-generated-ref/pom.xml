@@ -102,73 +102,73 @@
                 <artifactId>opendj-doc-maven-plugin</artifactId>
 
                 <executions>
-                    <execution>
-                        <id>generate-configuration-reference-doc</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate-config-ref</goal>
-                        </goals>
-                    </execution>
+<!--                    <execution>-->
+<!--                        <id>generate-configuration-reference-doc</id>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>generate-config-ref</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
 
-                    <execution>
-                        <id>generate-global-acis-table-and-ref-for-doc</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate-global-acis-table</goal>
-                            <goal>generate-schema-ref</goal>
-                        </goals>
-                    </execution>
+<!--                    <execution>-->
+<!--                        <id>generate-global-acis-table-and-ref-for-doc</id>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>generate-global-acis-table</goal>-->
+<!--                            <goal>generate-schema-ref</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
 
-                    <execution>
-                        <id>generate-log-reference-doc</id>
-                        <goals>
-                            <goal>generate-xml-messages-doc</goal>
-                        </goals>
-                        <phase>prepare-package</phase>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/docbkx-sources/shared</outputDirectory>
-                            <messageFileNames>
-                                <!--
-                                  For each .properties with messages of at least error severity,
-                                  generate a section in the log message reference listing the messages.
-                                -->
-                                <messageFileName>access_control</messageFileName>
-                                <messageFileName>admin</messageFileName>
-                                <messageFileName>admin_tool</messageFileName>
-                                <messageFileName>backend</messageFileName>
-                                <messageFileName>config</messageFileName>
-                                <messageFileName>core</messageFileName>
-                                <messageFileName>extension</messageFileName>
-                                <messageFileName>external</messageFileName>
-                                <messageFileName>logger</messageFileName>
-                                <messageFileName>plugin</messageFileName>
-                                <messageFileName>protocol</messageFileName>
-                                <messageFileName>quickSetup</messageFileName>
-                                <messageFileName>replication</messageFileName>
-                                <messageFileName>runtime</messageFileName>
-                                <messageFileName>schema</messageFileName>
-                                <messageFileName>task</messageFileName>
-                                <messageFileName>tool</messageFileName>
-                                <messageFileName>utility</messageFileName>
-                                <messageFileName>version</messageFileName>
-                            </messageFileNames>
-                        </configuration>
-                    </execution>
+<!--                    <execution>-->
+<!--                        <id>generate-log-reference-doc</id>-->
+<!--                        <goals>-->
+<!--                            <goal>generate-xml-messages-doc</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>prepare-package</phase>-->
+<!--                        <configuration>-->
+<!--                            <outputDirectory>${project.build.directory}/docbkx-sources/shared</outputDirectory>-->
+<!--                            <messageFileNames>-->
+<!--                                &lt;!&ndash;-->
+<!--                                  For each .properties with messages of at least error severity,-->
+<!--                                  generate a section in the log message reference listing the messages.-->
+<!--                                &ndash;&gt;-->
+<!--                                <messageFileName>access_control</messageFileName>-->
+<!--                                <messageFileName>admin</messageFileName>-->
+<!--                                <messageFileName>admin_tool</messageFileName>-->
+<!--                                <messageFileName>backend</messageFileName>-->
+<!--                                <messageFileName>config</messageFileName>-->
+<!--                                <messageFileName>core</messageFileName>-->
+<!--                                <messageFileName>extension</messageFileName>-->
+<!--                                <messageFileName>external</messageFileName>-->
+<!--                                <messageFileName>logger</messageFileName>-->
+<!--                                <messageFileName>plugin</messageFileName>-->
+<!--                                <messageFileName>protocol</messageFileName>-->
+<!--                                <messageFileName>quickSetup</messageFileName>-->
+<!--                                <messageFileName>replication</messageFileName>-->
+<!--                                <messageFileName>runtime</messageFileName>-->
+<!--                                <messageFileName>schema</messageFileName>-->
+<!--                                <messageFileName>task</messageFileName>-->
+<!--                                <messageFileName>tool</messageFileName>-->
+<!--                                <messageFileName>utility</messageFileName>-->
+<!--                                <messageFileName>version</messageFileName>-->
+<!--                            </messageFileNames>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
 
-                    <execution>
-                        <id>generate-result-code-doc</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>generate-result-code-doc</goal>
-                        </goals>
-                        <configuration>
-                            <resultCodeSource>
-                                ${project.build.directory}/dependency/org/forgerock/opendj/ldap/ResultCode.java
-                            </resultCodeSource>
-                            <xmlFile>${project.build.directory}/docbkx-sources/shared/appendix-ldap-result-codes.xml
-                            </xmlFile>
-                        </configuration>
-                    </execution>
+<!--                    <execution>-->
+<!--                        <id>generate-result-code-doc</id>-->
+<!--                        <phase>prepare-package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>generate-result-code-doc</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <resultCodeSource>-->
+<!--                                ${project.build.directory}/dependency/org/forgerock/opendj/ldap/ResultCode.java-->
+<!--                            </resultCodeSource>-->
+<!--                            <xmlFile>${project.build.directory}/docbkx-sources/shared/appendix-ldap-result-codes.xml-->
+<!--                            </xmlFile>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
 
                     <execution>
                         <id>generate-doc</id>
@@ -325,36 +325,36 @@
             </plugin>
 
             <!-- Generate Artifacts -->
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>config-ref</id>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <phase>package</phase>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/main/assembly/config-ref-assembly.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
+<!--            <plugin>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>config-ref</id>-->
+<!--                        <goals>-->
+<!--                            <goal>single</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>package</phase>-->
+<!--                        <configuration>-->
+<!--                            <descriptors>-->
+<!--                                <descriptor>src/main/assembly/config-ref-assembly.xml</descriptor>-->
+<!--                            </descriptors>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
 
-                    <execution>
-                        <id>generated-doc-sources</id>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <phase>package</phase>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/main/assembly/generated-doc-sources-assembly.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--                    <execution>-->
+<!--                        <id>generated-doc-sources</id>-->
+<!--                        <goals>-->
+<!--                            <goal>single</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>package</phase>-->
+<!--                        <configuration>-->
+<!--                            <descriptors>-->
+<!--                                <descriptor>src/main/assembly/generated-doc-sources-assembly.xml</descriptor>-->
+<!--                            </descriptors>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 

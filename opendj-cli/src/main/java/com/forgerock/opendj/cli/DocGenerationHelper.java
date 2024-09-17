@@ -45,7 +45,11 @@ public final class DocGenerationHelper {
     private static Configuration getConfiguration() {
         if (configuration == null) {
             configuration = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
-            configuration.setClassForTemplateLoading(DocGenerationHelper.class, "/templates");
+            String basePackagePath = "/templates";
+            if(System.getProperty("org.openidentityplatform.opendj.gendoc.asciidoc") != null) {
+                basePackagePath = basePackagePath + "/asciidoc";
+            }
+            configuration.setClassForTemplateLoading(DocGenerationHelper.class, basePackagePath);
             configuration.setDefaultEncoding("UTF-8");
             configuration.setTemplateExceptionHandler(TemplateExceptionHandler.DEBUG_HANDLER);
         }
