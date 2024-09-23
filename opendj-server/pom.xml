@@ -19,7 +19,7 @@
   <parent>
     <groupId>org.openidentityplatform.opendj</groupId>
     <artifactId>opendj-parent</artifactId>
-    <version>4.7.1-SNAPSHOT</version>
+    <version>4.8.1-SNAPSHOT</version>
   </parent>
   <artifactId>opendj-server</artifactId>
   <name>OpenDJ Server NG</name>
@@ -31,10 +31,6 @@
     <!-- Product information properties -->
     <patchFixIds />
     <isDebugBuild>false</isDebugBuild>
-    <docHomepageUrl>http://opendj.forgerock.org/</docHomepageUrl>
-    <docWikiUrl>http://opendj.forgerock.org/docs.html</docWikiUrl>
-    <docGuideRefUrl>http://opendj.forgerock.org/doc/admin-guide/index.html</docGuideRefUrl>
-    <docGuideAdminUrl>http://opendj.forgerock.org/doc/admin-guide/index.html</docGuideAdminUrl>
     <doclint>none</doclint>
   </properties>
   <dependencies>
