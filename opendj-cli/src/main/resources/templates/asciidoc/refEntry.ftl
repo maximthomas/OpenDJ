@@ -13,10 +13,8 @@
  Copyright 2024 3A Systems LLC
 ////
 
-==
-
 [#${name}-1]
-==== ${name} — ${shortDesc}
+=== ${name} — ${shortDesc}
 
 ==== Synopsis
 `${name}` <#if args??>${args}</#if>
@@ -61,29 +59,30 @@ ${description?ensure_ends_with(".")}
  <refsynopsisdiv>
   <cmdsynopsis>
    <command>${name}</command>
-
+   <#if args??><arg choice="plain">${args}</arg></#if>
   </cmdsynopsis>
  </refsynopsisdiv>
 
  <refsect1 xml:id="${name}-description">
-   <title>${descTitle}</title>
+  <title>${descTitle}</title>
 
-   <para>
+  <para>
+   ${description?ensure_ends_with(".")}
+  </para>
 
-   </para>
-
-   <#if info??>${info}</#if>
+  <#if info??>${info}</#if>
  </refsect1>
 
  <#if optionSection??>
-   ${optionSection}
- </#if>
+ ${optionSection}
+</#if>
 
- <#if subcommands??>
-   ${subcommands}
- </#if>
+<#if subcommands??>
+${subcommands}
+</#if>
 
- <#if trailingSectionString??>
-   ${trailingSectionString}
- </#if>
+<#if trailingSectionString??>
+${trailingSectionString}
+</#if>
 </refentry>
+
