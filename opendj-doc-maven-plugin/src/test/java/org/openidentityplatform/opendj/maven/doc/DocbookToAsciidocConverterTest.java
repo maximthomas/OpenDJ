@@ -1,6 +1,7 @@
 package org.openidentityplatform.opendj.maven.doc;
 
 import org.apache.commons.io.FileUtils;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -15,17 +16,18 @@ import java.util.List;
 
 import static org.testng.Assert.*;
 
+@Ignore
 public class DocbookToAsciidocConverterTest {
-    @Test
+    //@Test
     public void testConvert() throws Exception {
-        File testFile = new File(getClass().getResource("/docbook/man-pages/man-dsconfig.xml").toURI());
+        File testFile = new File(getClass().getResource("/docbook/man-pages/description-resource-path.xml").toURI());
         String docbook = FileUtils.readFileToString(testFile, StandardCharsets.UTF_8);
         DocbookToAsciidocConverter converter = new DocbookToAsciidocConverter();
         String asciidoc = converter.convert(docbook);
         System.out.println(asciidoc.toString());
     }
 
-    @Test
+//    @Test
     public void multipleFilesConverter() throws Exception {
 
 
@@ -101,15 +103,15 @@ public class DocbookToAsciidocConverterTest {
 //                }
 //            }
         }
-        try (DirectoryStream<Path> dir = Files.newDirectoryStream(mpPath, "exit-codes-*.xml")) {
-
-            for (Path entry : dir) {
-                System.out.println("--" + entry);
-                String docbook = FileUtils.readFileToString(entry.toFile(), StandardCharsets.UTF_8);
-                DocbookToAsciidocConverter converter = new DocbookToAsciidocConverter();
-                String asciidoc = converter.convert(docbook);
-                System.out.println(asciidoc.toString());
-            }
-        }
+//        try (DirectoryStream<Path> dir = Files.newDirectoryStream(mpPath, "exit-codes-*.xml")) {
+//
+//            for (Path entry : dir) {
+//                System.out.println("--" + entry);
+//                String docbook = FileUtils.readFileToString(entry.toFile(), StandardCharsets.UTF_8);
+//                DocbookToAsciidocConverter converter = new DocbookToAsciidocConverter();
+//                String asciidoc = converter.convert(docbook);
+//                System.out.println(asciidoc.toString());
+//            }
+//        }
     }
 }

@@ -579,6 +579,79 @@
                                     </tools>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>generate-asciidoc</id>
+                                <goals>
+                                    <goal>generate-asciidoc</goal>
+                                </goals>
+                                <phase>prepare-package</phase>
+                                <configuration>
+                                    <files>
+                                        <file>
+                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/shared/table-global-acis.xml</inputDocBookFile>
+                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/table-global-acis.adoc</outputAsciiDocFile>
+                                        </file>
+                                        <file>
+                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/shared/sec-locales-subtypes.xml</inputDocBookFile>
+                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/sec-locales-subtypes.adoc</outputAsciiDocFile>
+                                        </file>
+                                        <file>
+                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/man-pages/filters.xml</inputDocBookFile>
+                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/filters.adoc</outputAsciiDocFile>
+                                        </file>
+                                        <file>
+                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/man-pages/attributes.xml</inputDocBookFile>
+                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/attributes.adoc</outputAsciiDocFile>
+                                        </file>
+                                        <file>
+                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/man-pages/files.xml</inputDocBookFile>
+                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/files.adoc</outputAsciiDocFile>
+                                        </file>
+                                        <file>
+                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/man-pages/description-resource-path.xml</inputDocBookFile>
+                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/description-resource-path.adoc</outputAsciiDocFile>
+                                        </file>
+                                    </files>
+                                    <manPages>
+                                        <manPage>addrate</manPage>
+                                        <manPage>authrate</manPage>
+                                        <manPage>base64</manPage>
+                                        <manPage>ldapcompare</manPage>
+                                        <manPage>ldapdelete</manPage>
+                                        <manPage>ldapmodify</manPage>
+                                        <manPage>ldappasswordmodify</manPage>
+                                        <manPage>ldapsearch</manPage>
+                                        <manPage>ldifdiff</manPage>
+                                        <manPage>ldifmodify</manPage>
+                                        <manPage>ldifsearch</manPage>
+                                        <manPage>makeldif</manPage>
+                                        <manPage>modrate</manPage>
+                                        <manPage>searchrate</manPage>
+
+                                        <manPage>backendstat</manPage>
+                                        <manPage>backup</manPage>
+                                        <manPage>control-panel</manPage>
+                                        <manPage>create-rc-script</manPage>
+                                        <manPage>dsconfig</manPage>
+                                        <manPage>dsreplication</manPage>
+                                        <manPage>encode-password</manPage>
+                                        <manPage>export-ldif</manPage>
+                                        <manPage>import-ldif</manPage>
+                                        <manPage>list-backends</manPage>
+                                        <manPage>manage-account</manPage>
+                                        <manPage>manage-tasks</manPage>
+                                        <manPage>rebuild-index</manPage>
+                                        <manPage>restore</manPage>
+                                        <manPage>setup</manPage>
+                                        <manPage>start-ds</manPage>
+                                        <manPage>status</manPage>
+                                        <manPage>stop-ds</manPage>
+                                        <manPage>uninstall</manPage>
+                                        <manPage>upgrade</manPage>
+                                        <manPage>verify-index</manPage>
+                                    </manPages>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
 
@@ -586,6 +659,7 @@
                     <plugin>
                         <groupId>org.openidentityplatform.commons</groupId>
                         <artifactId>doc-maven-plugin</artifactId>
+                        <version>2.2.2-SNAPSHOT</version>
                         <executions>
                             <execution>
                                 <id>build-man-pages</id>

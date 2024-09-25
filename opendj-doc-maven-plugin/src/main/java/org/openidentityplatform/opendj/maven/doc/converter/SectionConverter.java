@@ -31,7 +31,7 @@ public class SectionConverter implements Converter {
         List<Element> children = element.elements();
         for(Element child: children) {
             if(child.getName().equals("title")) {
-                adoc.append("=== ").appendln(child.getStringValue());
+                adoc.append("=== ").appendln(child.getStringValue()).appendNewLine();
             }
             else {
                 ElementConverter.INSTANCE.convert(child, adoc, context);

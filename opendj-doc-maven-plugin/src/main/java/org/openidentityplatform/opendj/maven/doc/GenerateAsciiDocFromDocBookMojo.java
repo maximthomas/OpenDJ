@@ -16,6 +16,7 @@
 
 package org.openidentityplatform.opendj.maven.doc;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -24,6 +25,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Mojo(name = "generate-asciidoc", defaultPhase = LifecyclePhase.COMPILE)
@@ -35,10 +37,28 @@ public class GenerateAsciiDocFromDocBookMojo extends AbstractMojo {
     @Parameter
     private List<DocBookFileToConvert> files;
 
+    @Parameter
+    private List<String> manPages;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        DocbookToAsciidocConverter docbookToAsciidocConverter = new DocbookToAsciidocConverter();
         if(files != null) {
             for (DocBookFileToConvert file : files) {
+                File input = new File(file.getInputDocBookFile());
+                File output = new File(file.getOutputAsciiDocFile());
+                try {
+                    String docbook = FileUtils.readFileToString(input, StandardCharsets.UTF_8);
+                    String adoc = docbookToAsciidocConverter.convert(docbook);
+                    FileUtils.write(output, adoc, StandardCharsets.UTF_8, false);
+                } catch (Exception e) {
+                    throw new MojoExecutionException("error converting file " + input, e);
+                }
+            }
+        }
+
+        if(manPages != null) {
+            for (String manPage : manPages) {
 
             }
         }
