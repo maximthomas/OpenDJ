@@ -30,5 +30,6 @@ public class ParagraphConverter implements Converter {
         ConverterUtils.convertChildren(element, buffer, context);
         buffer.trim();
         adoc.appendln(buffer.toString());
+        adoc.appendNewLine();
     }
 }

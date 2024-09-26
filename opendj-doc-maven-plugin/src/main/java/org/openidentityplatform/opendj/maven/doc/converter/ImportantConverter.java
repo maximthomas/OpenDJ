@@ -16,18 +16,28 @@
 
 package org.openidentityplatform.opendj.maven.doc.converter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.TextStringBuilder;
 import org.dom4j.Element;
 
-public class ReplaceableConverter implements Converter {
+public class ImportantConverter implements Converter {
 
-    private ReplaceableConverter() {}
+    private ImportantConverter() {}
 
-    public static ReplaceableConverter INSTANCE = new ReplaceableConverter();
+    public static ImportantConverter INSTANCE = new ImportantConverter();
     @Override
     public void convert(Element element, TextStringBuilder adoc, Context context) throws ConversionException {
-        adoc.append("__");
-        ConverterUtils.convertChildren(element, adoc, context);
-        adoc.append("__");
+
+        String exampleLevelAppend = StringUtils.repeat("=", context.exampleLevel * 2);
+        context.exampleLevel++;
+
+
+        adoc.appendln("[IMPORTANT]");
+        adoc.appendln("====" + exampleLevelAppend);
+        for(Element child : element.elements()) {
+            ElementConverter.INSTANCE.convert(child, adoc, context);
+        }
+        adoc.appendln("====" + exampleLevelAppend);
+        context.exampleLevel--;
     }
 }

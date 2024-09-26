@@ -14,30 +14,40 @@
  * Copyright 2024 3A Systems,LLC.
  */
 
+
 package org.openidentityplatform.opendj.maven.doc.converter;
 
 import org.apache.commons.text.TextStringBuilder;
 import org.dom4j.Element;
 
-public class OLinkConverter implements Converter {
+import java.util.List;
 
-    private OLinkConverter() {}
+public class OrderedListConverter implements Converter {
 
-    public static OLinkConverter INSTANCE = new OLinkConverter();
+    private OrderedListConverter() {}
+
+    public static OrderedListConverter INSTANCE = new OrderedListConverter();
     @Override
     public void convert(Element element, TextStringBuilder adoc, Context context) throws ConversionException {
-
-        String doc = element.attributeValue("targetdoc");
-        String ptr = element.attributeValue("targetptr");
-        String href = getHref(doc, ptr);
-        adoc.append("xref:");
-        adoc.append(href).append("[]");
+        adoc.appendNewLine();
+        for (Element li: element.elements()) {
+            if("listitem".equals(li.getName())) {
+                adoc.appendNewLine().append(getPrefix(context)).append(" ");
+                List<Element> children = li.elements();
+                for (int i = 0; i < children.size(); i++) {
+                    Element child = children.get(i);
+                    ElementConverter.INSTANCE.convert(child, adoc, context);
+                    if(i < children.size() - 1) {
+                        adoc.appendln("+");
+                    }
+                }
+            } else {
+                ElementConverter.INSTANCE.convert(li, adoc, context);
+            }
+        }
     }
 
-    private String getHref(String doc, String ptr) {
-        if(ptr.equals("about-acis")) {
-            doc = doc.concat("/chap-privileges-acis");
-        }
-        return "../".concat(doc).concat(".adoc").concat("#").concat(ptr);
+    public String getPrefix(Context context) {
+        return ".";
     }
 }

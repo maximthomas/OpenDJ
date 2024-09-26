@@ -42,7 +42,9 @@ public class ElementConverter implements Converter {
         converterMap.put("itemizedlist", ItemizedListConverter.INSTANCE);
         converterMap.put("refentry", RefEntryConverter.INSTANCE);
         converterMap.put("include", XIncludeConverter.INSTANCE);
-        converterMap.put("replaceable", ReplaceableConverter.INSTANCE);
+        converterMap.put("replaceable", EmphasisConverter.INSTANCE);
+        converterMap.put("firstterm", EmphasisConverter.INSTANCE);
+        converterMap.put("emphasis", EmphasisConverter.INSTANCE);
         converterMap.put("programlisting", ProgramListingConverter.INSTANCE);
         converterMap.put("xref", XRefConverter.INSTANCE);
         converterMap.put("reference", ReferenceConverter.INSTANCE);
@@ -52,6 +54,10 @@ public class ElementConverter implements Converter {
         converterMap.put("refsect1", RefEntryConverter.INSTANCE::convertRefSect1);
         converterMap.put("screen", ProgramListingConverter.INSTANCE);
         converterMap.put("citetitle", ChildrenConverter.INSTANCE);
+        converterMap.put("orderedlist", OrderedListConverter.INSTANCE);
+        converterMap.put("informalexample", InformalExampleConverter.INSTANCE);
+        converterMap.put("important", ImportantConverter.INSTANCE);
+        converterMap.put("trademark", ImportantConverter.INSTANCE);
     }
 
     @Override

@@ -13,6 +13,7 @@
   ~ information: "Portions Copyright [year] [name of copyright owner]".
   ~
   ~ Copyright 2016 ForgeRock AS.
+  ~ Portions Copyright 2024 3A Systems LLC.
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -584,32 +585,26 @@
                                 <goals>
                                     <goal>generate-asciidoc</goal>
                                 </goals>
-                                <phase>prepare-package</phase>
+                                <phase>package</phase>
                                 <configuration>
+                                    <dirs>
+                                        <dir>
+                                            <input>${project.basedir}/src/main/docbkx/man-pages</input>
+                                            <output>${project.build.directory}/asciidoc/source/partials</output>
+                                            <ignoreFiles>
+                                                <ignoreFile>index.xml</ignoreFile>
+                                                <ignoreFile>man-configure.xml</ignoreFile>
+                                            </ignoreFiles>
+                                        </dir>
+                                    </dirs>
                                     <files>
                                         <file>
-                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/shared/table-global-acis.xml</inputDocBookFile>
-                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/table-global-acis.adoc</outputAsciiDocFile>
+                                            <input>${project.build.directory}/docbkx-sources/shared/table-global-acis.xml</input>
+                                            <output>${project.build.directory}/asciidoc/source/partials/table-global-acis.adoc</output>
                                         </file>
                                         <file>
-                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/shared/sec-locales-subtypes.xml</inputDocBookFile>
-                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/sec-locales-subtypes.adoc</outputAsciiDocFile>
-                                        </file>
-                                        <file>
-                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/man-pages/filters.xml</inputDocBookFile>
-                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/filters.adoc</outputAsciiDocFile>
-                                        </file>
-                                        <file>
-                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/man-pages/attributes.xml</inputDocBookFile>
-                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/attributes.adoc</outputAsciiDocFile>
-                                        </file>
-                                        <file>
-                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/man-pages/files.xml</inputDocBookFile>
-                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/files.adoc</outputAsciiDocFile>
-                                        </file>
-                                        <file>
-                                            <inputDocBookFile>${project.build.directory}/docbkx-sources/man-pages/description-resource-path.xml</inputDocBookFile>
-                                            <outputAsciiDocFile>${project.build.directory}/asciidoc/source/partials/description-resource-path.adoc</outputAsciiDocFile>
+                                            <input>${project.build.directory}/docbkx-sources/shared/sec-locales-subtypes.xml</input>
+                                            <output>${project.build.directory}/asciidoc/source/partials/sec-locales-subtypes.adoc</output>
                                         </file>
                                     </files>
                                     <manPages>

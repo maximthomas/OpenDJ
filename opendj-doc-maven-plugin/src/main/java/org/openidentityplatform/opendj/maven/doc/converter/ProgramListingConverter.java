@@ -26,8 +26,8 @@ public class ProgramListingConverter implements Converter {
     public static ProgramListingConverter INSTANCE = new ProgramListingConverter();
     @Override
     public void convert(Element element, TextStringBuilder adoc, Context context) {
-        //TODO add lang
-        adoc.appendln("[source]").appendln("---");
-        adoc.appendln(element.getStringValue().trim()).appendln("---");
+        adoc.appendNewLine();
+        adoc.appendln("[source]").appendln("----");
+        adoc.appendln(element.getStringValue().trim()).appendln("----");
     }
 }

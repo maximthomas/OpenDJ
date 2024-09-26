@@ -16,8 +16,18 @@
 
 package org.openidentityplatform.opendj.maven.doc.converter;
 
-public class Context {
+import org.apache.commons.text.TextStringBuilder;
+import org.dom4j.Element;
 
-    public int tableLevel = 0;
-    public int exampleLevel = 0;
+public class EmphasisConverter implements Converter {
+
+    private EmphasisConverter() {}
+
+    public static EmphasisConverter INSTANCE = new EmphasisConverter();
+    @Override
+    public void convert(Element element, TextStringBuilder adoc, Context context) throws ConversionException {
+        adoc.append("__");
+        ConverterUtils.convertChildren(element, adoc, context);
+        adoc.append("__");
+    }
 }

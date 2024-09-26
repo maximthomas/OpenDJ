@@ -14,10 +14,33 @@
  * Copyright 2024 3A Systems,LLC.
  */
 
-package org.openidentityplatform.opendj.maven.doc.converter;
+package org.openidentityplatform.opendj.maven.doc;
 
-public class Context {
+import org.apache.maven.plugins.annotations.Parameter;
 
-    public int tableLevel = 0;
-    public int exampleLevel = 0;
+import java.util.List;
+
+public class DocBookDirToConvert {
+
+    @Parameter
+    private String input;
+
+    @Parameter
+    private String output;
+
+    @Parameter
+    private List<String> ignoreFiles;
+
+    
+    public String getInput() {
+        return input;
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
+    public List<String> getIgnoreFiles() {
+        return ignoreFiles;
+    }
 }

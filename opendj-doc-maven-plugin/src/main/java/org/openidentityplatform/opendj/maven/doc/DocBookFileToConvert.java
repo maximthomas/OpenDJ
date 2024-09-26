@@ -21,16 +21,17 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class DocBookFileToConvert {
 
     @Parameter
-    private String inputDocBookFile;
+    private String input;
 
     @Parameter
-    private String outputAsciiDocFile;
+    private String output;
 
-    public String getInputDocBookFile() {
-        return inputDocBookFile;
+
+    public String getInput() {
+        return input;
     }
 
-    public String getOutputAsciiDocFile() {
-        return outputAsciiDocFile;
+    public String getOutput() {
+        return output;
     }
 }

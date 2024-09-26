@@ -20,6 +20,7 @@ import org.apache.commons.text.TextStringBuilder;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.openidentityplatform.opendj.maven.doc.converter.Context;
 import org.openidentityplatform.opendj.maven.doc.converter.ConversionException;
@@ -36,22 +37,27 @@ public class DocbookToAsciidocConverter {
     }
 
     public String convert(String docbook) throws DocumentException, ConversionException {
-
         SAXReader xmlReader = new SAXReader();
-
         InputSource source = new InputSource(new StringReader(docbook));
-
         Document xmlDoc = xmlReader.read(source);
-
         TextStringBuilder adoc = new TextStringBuilder();
-
+        appendCopyright(xmlDoc, adoc);
         Element element = xmlDoc.getRootElement();
-
         Context context = new Context();
-
         ElementConverter.INSTANCE.convert(element, adoc, context);
-
         return adoc.toString();
+    }
+
+    private void appendCopyright(Document xmlDoc, TextStringBuilder adoc) {
+        if(!xmlDoc.nodeIterator().hasNext()) {
+            return;
+        }
+        Node copyNode = xmlDoc.nodeIterator().next();
+        String copyright = copyNode.getStringValue();
+        adoc.appendln("////");
+        adoc.appendln(copyright);
+        adoc.appendln("////");
+
     }
 
 

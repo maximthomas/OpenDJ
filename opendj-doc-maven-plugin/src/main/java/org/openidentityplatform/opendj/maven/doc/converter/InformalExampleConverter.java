@@ -16,18 +16,24 @@
 
 package org.openidentityplatform.opendj.maven.doc.converter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.TextStringBuilder;
 import org.dom4j.Element;
 
-public class XIncludeConverter implements Converter {
+public class InformalExampleConverter implements Converter {
+    private InformalExampleConverter() {}
 
-    private XIncludeConverter() {}
-    public static XIncludeConverter INSTANCE = new XIncludeConverter();
+    public static InformalExampleConverter INSTANCE = new InformalExampleConverter();
     @Override
-    public void convert(Element element, TextStringBuilder adoc, Context context) {
-        adoc.appendNewLine();
-        adoc.append("include::./")
-                .append(element.attributeValue("href").replace(".xml", ".adoc"))
-                .appendln("[]");
+    public void convert(Element element, TextStringBuilder adoc, Context context) throws ConversionException {
+        String exampleLevelAppend = StringUtils.repeat("=", context.exampleLevel * 2);
+        context.exampleLevel++;
+
+        adoc.appendln("====" + exampleLevelAppend);
+        for(Element child : element.elements()) {
+            ElementConverter.INSTANCE.convert(child, adoc, context);
+        }
+        adoc.appendln("====" + exampleLevelAppend);
+        context.exampleLevel--;
     }
 }
