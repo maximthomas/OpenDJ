@@ -43,7 +43,7 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static javax.xml.bind.DatatypeConverter.printDateTime;
+import static jakarta.xml.bind.DatatypeConverter.printDateTime;
 import static org.forgerock.opendj.ldap.Functions.*;
 import static org.opends.messages.ConfigMessages.*;
 import static org.opends.server.protocols.internal.Requests.newSearchRequest;
