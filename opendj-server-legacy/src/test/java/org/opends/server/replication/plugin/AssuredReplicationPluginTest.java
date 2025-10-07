@@ -434,12 +434,17 @@ public class AssuredReplicationPluginTest extends ReplicationTestCase
       shutdown = true;
 
       // Shutdown the listener thread and any current client handling code
+      debugInfo("Closing socket..." + listenSocket);
       StaticUtils.close(listenSocket);
+      debugInfo("Socket closed");
+      debugInfo("Closing session... " + session);
       StaticUtils.close(session);
+      debugInfo("Session closed");
 
       try
       {
         join();
+        debugInfo("joined");
       } catch (InterruptedException ie)
       {
       }
@@ -733,7 +738,7 @@ public class AssuredReplicationPluginTest extends ReplicationTestCase
    * If the RS group id is not the same as the DS one, this must not time out
    * and return immediately.
    */
-  @Test(dataProvider = "rsGroupIdProvider")
+  @Test(dataProvider = "rsGroupIdProvider", timeOut = 1000 * 60 * 5)
   public void testSafeDataModeTimeout(byte rsGroupId) throws Exception
   {
     int TIMEOUT = 5000;
@@ -843,7 +848,7 @@ public class AssuredReplicationPluginTest extends ReplicationTestCase
    * If the RS group id is not the same as the DS one, this must not time out
    * and return immediately.
    */
-  @Test(dataProvider = "rsGroupIdProvider")
+  @Test(dataProvider = "rsGroupIdProvider", timeOut = 1000 * 60 * 5)
   public void testSafeReadModeTimeout(byte rsGroupId) throws Exception
   {
     int TIMEOUT = 5000;
@@ -925,7 +930,7 @@ public class AssuredReplicationPluginTest extends ReplicationTestCase
   }
 
   /** Tests parameters sent in session handshake and updates, when not using assured replication. */
-  @Test
+  @Test(timeOut = 1000 * 60 * 5)
   public void testNotAssuredSession() throws Exception
   {
     String testcase = "testNotAssuredSession";
@@ -997,17 +1002,20 @@ public class AssuredReplicationPluginTest extends ReplicationTestCase
     debugInfo("Ending test " + testcase);
     if (replicationServer != null)
     {
+      debugInfo("Ending test: shutting down server " + replicationServer);
       replicationServer.shutdown();
+      debugInfo("Ending test: server shut down");
     }
-
+    debugInfo(String.format("Removing domain: %s, %s, %s", safeDataDomainCfgEntry, safeReadDomainCfgEntry, notAssuredDomainCfgEntry));
     removeDomain(safeDataDomainCfgEntry, safeReadDomainCfgEntry, notAssuredDomainCfgEntry);
+    debugInfo("Domain removed");
   }
 
   /**
    * Tests that a DS performing a modification in safe data mode receives the RS
    * ack and does not return before returning it.
    */
-  @Test
+  @Test(timeOut = 1000 * 60 * 5)
   public void testSafeDataModeAck() throws Exception
   {
     int TIMEOUT = 5000;
@@ -1096,7 +1104,7 @@ public class AssuredReplicationPluginTest extends ReplicationTestCase
    * Tests that a DS receiving an update from a RS in safe read mode effectively
    * sends an ack back (with or without error).
    */
-  @Test(dataProvider = "rsGroupIdProvider", groups = "slow")
+  @Test(dataProvider = "rsGroupIdProvider", groups = "slow", timeOut = 1000 * 60 * 5)
   public void testSafeReadModeReply(byte rsGroupId) throws Exception
   {
     int TIMEOUT = 5000;
@@ -1183,7 +1191,7 @@ public class AssuredReplicationPluginTest extends ReplicationTestCase
    * Tests that a DS receiving an update from a RS in safe data mode does not
    * send back and ack (only safe read is taken into account in DS replay).
    */
-  @Test(dataProvider = "rsGroupIdProvider", groups = "slow")
+  @Test(dataProvider = "rsGroupIdProvider", groups = "slow", timeOut = 1000 * 60 * 5)
   public void testSafeDataModeReply(byte rsGroupId) throws Exception
   {
     int TIMEOUT = 5000;
@@ -1225,7 +1233,7 @@ public class AssuredReplicationPluginTest extends ReplicationTestCase
    * DS performs many successive modifications in safe data mode and receives RS
    * acks with various errors. Check for monitoring right errors
    */
-  @Test(groups = "slow")
+  @Test(groups = "slow", timeOut = 1000 * 60 * 5)
   public void testSafeDataManyErrors() throws Exception
   {
     int TIMEOUT = 5000;
@@ -1335,7 +1343,7 @@ public class AssuredReplicationPluginTest extends ReplicationTestCase
    * DS performs many successive modifications in safe read mode and receives RS
    * acks with various errors. Check for monitoring right errors
    */
-  @Test(groups = "slow")
+  @Test(groups = "slow", timeOut = 1000 * 60 * 5)
   public void testSafeReadManyErrors() throws Exception
   {
     int TIMEOUT = 5000;

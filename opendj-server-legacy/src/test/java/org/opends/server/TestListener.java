@@ -340,6 +340,7 @@ public class TestListener extends TestListenerAdapter implements IReporter {
 
   @Override
   public void onTestStart(ITestResult tr) {
+    originalSystemOut.println("-- Executing test: " +  tr.getMethod());
     super.onTestStart(tr);
 
     enforceTestClassTypeAndAnnotations(tr);
@@ -367,21 +368,18 @@ public class TestListener extends TestListenerAdapter implements IReporter {
 
     if(tr.getThrowable() instanceof ThreadTimeoutException) {
       ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
-      // dumpAllThreads(boolean lockedMonitors, boolean lockedSynchronizers)
       // Set both to true to include information about locked monitors and synchronizers.
       ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(true, true);
 
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
-
-      originalSystemErr.println("--- Java Thread Dump ---");
-      originalSystemErr.println("Timestamp: " + LocalDateTime.now());
-      originalSystemErr.println("------------------------");
+      originalSystemOut.println("--- Java Thread Dump ---");
+      originalSystemOut.println("Timestamp: " + LocalDateTime.now());
+      originalSystemOut.println("------------------------");
 
       for (ThreadInfo threadInfo : threadInfos) {
-        originalSystemErr.println(threadInfo.toString());
+        originalSystemOut.println(threadInfo.toString());
       }
 
-      originalSystemErr.println("Thread dump successfully written to stderr ");
+      originalSystemOut.println("Thread dump successfully written to stderr ");
 
     }
   }

@@ -101,6 +101,7 @@ import org.opends.server.loggers.ErrorLogPublisher;
 import org.opends.server.loggers.ErrorLogger;
 import org.opends.server.loggers.HTTPAccessLogPublisher;
 import org.opends.server.loggers.HTTPAccessLogger;
+import org.opends.server.loggers.TextWriter;
 import org.opends.server.plugins.InvocationCounterPlugin;
 import org.opends.server.protocols.ldap.BindRequestProtocolOp;
 import org.opends.server.protocols.ldap.BindResponseProtocolOp;
@@ -543,6 +544,8 @@ public final class TestCaseUtils {
             (ErrorLogPublisher) getServerStartupTextErrorPublisher(ERROR_TEXT_WRITER));
 
     DebugLogger.getInstance().addPublisherIfRequired(DEBUG_TEXT_WRITER);
+
+    ErrorLogger.getInstance().addLogPublisher((ErrorLogPublisher)getToolStartupTextErrorPublisher(new TextWriter.STDOUT()));
   }
 
   private static void writeBuildInfoFile() throws IOException
