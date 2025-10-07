@@ -366,7 +366,7 @@ public class TestListener extends TestListenerAdapter implements IReporter {
     super.onTestFailure(tr);
     reportTestFailed(tr);
 
-    if(tr.getThrowable() instanceof ThreadTimeoutException) {
+
       ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
       // Set both to true to include information about locked monitors and synchronizers.
       ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(true, true);
@@ -381,7 +381,6 @@ public class TestListener extends TestListenerAdapter implements IReporter {
 
       originalSystemOut.println("Thread dump successfully written to stderr ");
 
-    }
   }
 
   private void reportTestFailed(ITestResult tr)
