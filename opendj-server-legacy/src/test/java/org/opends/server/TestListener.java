@@ -23,9 +23,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.annotation.Annotation;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -48,6 +53,7 @@ import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.internal.thread.ThreadTimeoutException;
 import org.testng.xml.XmlSuite;
 
 import static org.opends.server.TestCaseUtils.*;
@@ -358,6 +364,26 @@ public class TestListener extends TestListenerAdapter implements IReporter {
   public void onTestFailure(ITestResult tr) {
     super.onTestFailure(tr);
     reportTestFailed(tr);
+
+    if(tr.getThrowable() instanceof ThreadTimeoutException) {
+      ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+      // dumpAllThreads(boolean lockedMonitors, boolean lockedSynchronizers)
+      // Set both to true to include information about locked monitors and synchronizers.
+      ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(true, true);
+
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+
+      originalSystemErr.println("--- Java Thread Dump ---");
+      originalSystemErr.println("Timestamp: " + LocalDateTime.now());
+      originalSystemErr.println("------------------------");
+
+      for (ThreadInfo threadInfo : threadInfos) {
+        originalSystemErr.println(threadInfo.toString());
+      }
+
+      originalSystemErr.println("Thread dump successfully written to stderr ");
+
+    }
   }
 
   private void reportTestFailed(ITestResult tr)

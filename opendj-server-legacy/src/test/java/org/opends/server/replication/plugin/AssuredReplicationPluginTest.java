@@ -1052,7 +1052,7 @@ public class AssuredReplicationPluginTest extends ReplicationTestCase
    * Tests that a DS performing a modification in safe read mode receives the RS
    * ack and does not return before returning it.
    */
-  @Test
+  @Test(timeOut = 1000 * 60 * 5) //throw timeout in 5 mins
   public void testSafeReadModeAck() throws Exception
   {
     int TIMEOUT = 5000;
