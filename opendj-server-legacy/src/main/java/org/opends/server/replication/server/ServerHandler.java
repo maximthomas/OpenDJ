@@ -1136,6 +1136,7 @@ public abstract class ServerHandler extends MessageHandler
    */
   public void doStop()
   {
+    logger.info(LocalizableMessage.raw("stopping server " + this));
     replicationServerDomain.stopServer(this, false);
   }
 

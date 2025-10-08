@@ -1149,6 +1149,7 @@ public class ReplicationServerDomain extends MonitorProvider<MonitorProviderCfg>
    */
   private void resetGenerationIdIfPossible()
   {
+    logger.info(LocalizableMessage.raw("reseting generation ids " + this));
     if (logger.isTraceEnabled())
     {
       debug("mayResetGenerationId generationIdSavedStatus="
@@ -1165,6 +1166,8 @@ public class ReplicationServerDomain extends MonitorProvider<MonitorProviderCfg>
       {
         if (generationId != rsHandler.getGenerationId())
         {
+          logger.info(LocalizableMessage.raw("mayResetGenerationId skip RS " + rsHandler
+                  + " that has different genId" + this));
           if (logger.isTraceEnabled())
           {
             debug("mayResetGenerationId skip RS " + rsHandler
@@ -1174,6 +1177,9 @@ public class ReplicationServerDomain extends MonitorProvider<MonitorProviderCfg>
         else if (rsHandler.hasRemoteLDAPServers())
         {
           ldapServersConnectedInTheTopology = true;
+          logger.info(LocalizableMessage.raw("mayResetGenerationId RS " + rsHandler
+                  + " has ldap servers connected to it"
+                  + " - will not reset generationId" + this));
 
           if (logger.isTraceEnabled())
           {
@@ -1712,14 +1718,17 @@ public class ReplicationServerDomain extends MonitorProvider<MonitorProviderCfg>
    */
   public long changeGenerationId(long generationId)
   {
+    logger.info(LocalizableMessage.raw("changing generation id to " + generationId + " for " + this));
     synchronized (generationIDLock)
     {
       long oldGenerationId = this.generationId;
 
       if (this.generationId != generationId)
       {
+        logger.info(LocalizableMessage.raw("clearing Dbs " + this));
         clearDbs();
 
+        logger.info(LocalizableMessage.raw("updating generationId " + this));
         this.generationId = generationId;
         this.generationIdSavedStatus = false;
       }
