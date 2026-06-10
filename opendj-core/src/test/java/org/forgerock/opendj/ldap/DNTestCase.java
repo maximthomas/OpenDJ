@@ -13,6 +13,7 @@
  *
  * Copyright 2010 Sun Microsystems, Inc.
  * Portions copyright 2011-2016 ForgeRock AS.
+ * Portions Copyright 2026 3A Systems LLC.
  */
 package org.forgerock.opendj.ldap;
 
@@ -1408,5 +1409,24 @@ public class DNTestCase extends SdkTestCase {
         DN longDN = DN.valueOf(builder.toString());
         assertEquals(longDN.toString(), builder.toString(),
             "String representation of a very long DN does not match the source DN");
+    }
+
+    @Test(timeOut = 5000,
+          expectedExceptions = LocalizedIllegalArgumentException.class)
+    public void testDNValueOfPerformanceWithRepeatedAttributeTypes() {
+        // Regression test for https://github.com/OpenIdentityPlatform/OpenDJ/issues/648
+        // Before the fix, this causes either OOM or takes >2.5 minutes due to exponential
+        // normalization in RDN.validateAvas() -> Arrays.sort -> AVA.compareTo ->
+        // getOrderingNormalizedValue() with distinguishedNameMatch on 2.5.4.1.
+        // The DN is invalid (duplicate 2.5.4.1 attr types), but the fix ensures it is
+        // rejected quickly rather than causing OOM during the sort.
+        String dnString = "NTLou=r1oa"
+                + "+2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1"
+                + "=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1"
+                + "=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1"
+                + "=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1=2.5.4.1"
+                + "=0=0"
+                + "+2.5.4.1=2.5.4.1=2.";
+        DN.valueOf(dnString);
     }
 }

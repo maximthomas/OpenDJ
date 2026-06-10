@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
@@ -281,7 +282,7 @@ public final class RDN implements Iterable<AVA>, Comparable<RDN> {
             break;
         default:
             final AVA[] sortedAVAs = Arrays.copyOf(avas, avas.length);
-            Arrays.sort(sortedAVAs);
+            Arrays.sort(sortedAVAs, Comparator.comparing(AVA::getAttributeType));
             AttributeType previousAttributeType = null;
             for (AVA ava : sortedAVAs) {
                 if (ava.getAttributeType().equals(previousAttributeType)) {
